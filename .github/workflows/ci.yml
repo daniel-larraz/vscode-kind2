@@ -14,6 +14,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v6
+    - name: Set MACOSX_DEPLOYMENT_TARGET
+      if: runner.os == 'macOS'
+      run: echo "MACOSX_DEPLOYMENT_TARGET=12" >> $GITHUB_ENV
     - name: Setup Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v6
       with:
@@ -21,7 +24,7 @@ jobs:
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
     - name: Configure dependencies
-      run: ./configure.sh ${{ matrix.platform }}
+      run: ./configure.sh ${{ matrix.platform }} z3-static
     - name: Package extension
       run: npx vsce package --target ${{ matrix.platform }}
     - name: Upload artifact

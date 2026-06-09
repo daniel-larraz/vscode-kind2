@@ -1,6 +1,6 @@
 #!/bin/bash
 
-Z3_VERSION=4.13.0
+Z3_VERSION=4.16.0
 KIND2_VERSION=2.3.0
 SERVER_VERSION=0.3.0
 
@@ -37,11 +37,11 @@ case "$OSTYPE" in
   darwin*)
     case "$ARCH" in
       x86_64)
-        Z3_OS_VERSION=x64-osx-11.7.10
+        Z3_OS_VERSION=x64-osx-15.7.3
         KIND2_OS_VERSION=macos-12-x86_64
         ;;
       arm64)
-        Z3_OS_VERSION=arm64-osx-11.0
+        Z3_OS_VERSION=arm64-osx-15.7.3
         KIND2_OS_VERSION=macos-12-arm64
         ;;
       *)
@@ -51,11 +51,11 @@ case "$OSTYPE" in
   linux*)
     case "$ARCH" in
       x86_64)
-        Z3_OS_VERSION=x64-glibc-2.31
+        Z3_OS_VERSION=x64-glibc-2.39
         KIND2_OS_VERSION=linux-x86_64
         ;;
       arm64)
-        Z3_OS_VERSION=arm64-glibc-2.35
+        Z3_OS_VERSION=arm64-glibc-2.38
         KIND2_OS_VERSION=linux-arm64
         ;;
       *)
@@ -79,20 +79,20 @@ rm -f kind2-language-server.zip
 
 # Install Z3
 case "$2" in
-  # z3-static)
-  #   wget https://github.com/Z3Prover/z3/archive/refs/tags/z3-$Z3_VERSION.tar.gz
-  #   tar xvf z3-$Z3_VERSION.tar.gz
-  #   rm z3-$Z3_VERSION.tar.gz
-  #   pushd z3-z3-$Z3_VERSION/
-  #   python3 scripts/mk_make.py --staticbin
-  #   pushd build/
-  #   make -j4
-  #   popd
-  #   popd
-  #   cp z3-z3-$Z3_VERSION/build/z3 .
-  #   strip z3
-  #   rm -r z3-z3-$Z3_VERSION/
-  #   ;;
+  z3-static)
+    wget https://github.com/Z3Prover/z3/archive/refs/tags/z3-$Z3_VERSION.tar.gz
+    tar xvf z3-$Z3_VERSION.tar.gz
+    rm z3-$Z3_VERSION.tar.gz
+    pushd z3-z3-$Z3_VERSION/
+    python3 scripts/mk_make.py --staticbin
+    pushd build/
+    make -j4
+    popd
+    popd
+    cp z3-z3-$Z3_VERSION/build/z3 .
+    strip z3
+    rm -r z3-z3-$Z3_VERSION/
+    ;;
   *)
     wget https://github.com/Z3Prover/z3/releases/download/z3-$Z3_VERSION/$Z3_ZIP_NAME.zip
     unzip -o $Z3_ZIP_NAME.zip

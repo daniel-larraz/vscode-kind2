@@ -69,7 +69,7 @@ export class Container{
     vscode.commands.executeCommand('kind2/showSource', this);
   }
 }
-export type component_kind = "typeDecl" | "constDecl" | "paramDecl" | "nodeDecl";
+export type component_kind = "typeDecl" | "constDecl" | "paramDecl" | "nodeDecl" | "lemmaDecl";
 export class Component {
   private _state: State[];
   private _analyses: Analysis[];
@@ -86,17 +86,22 @@ export class Component {
   get constDecl(): boolean { return this._kind == "constDecl";}
   get paramDecl(): boolean {return this._kind == "paramDecl";}
   get nodeDecl(): boolean {return this._kind == "nodeDecl";}
+  get lemmaDecl(): boolean {return this._kind == "lemmaDecl";}
   set kind(kind: string){
     switch(kind){
       case "constDecl":
       case "nodeDecl":
       case "typeDecl":
       case "paramDecl":
+      case "lemmaDecl":
         this._kind = kind;
         break;
       case "node":
       case "function":
         this._kind = "nodeDecl";
+        break;
+      case "lemma":
+        this._kind = "lemmaDecl";
         break;
       default:
         throw new Error(`Component kind must be of the type \"constDecl\",\"paramDecl\",\"typeDecl\", or \"nodeDecl\". Got \"${kind}\"`);

@@ -75,8 +75,12 @@ export class Kind2 implements TreeDataProvider<TreeNode>, CodeLensProvider {
           codeLenses.push(new CodeLens(range, { title: "Check Properties", command: "kind2/check", arguments: [component] }));
           codeLenses.push(new CodeLens(range, { title: "Check Realizability", command: "kind2/realizability", arguments: [component] }));
           codeLenses.push(new CodeLens(range, { title: "Show in Explorer", command: "kind2/reveal", arguments: [component] }));
-        }else if (component.paramDecl){
+        } else if (component.paramDecl){
           codeLenses.push(new CodeLens(range, { title: "Check Realizability", command: "kind2/realizability", arguments: [component] }));
+          codeLenses.push(new CodeLens(range, { title: "Show in Explorer", command: "kind2/reveal", arguments: [component] }));
+        } else if (component.lemmaDecl) {
+          codeLenses.push(new CodeLens(range, { title: "Check Properties", command: "kind2/check", arguments: [component] }));
+          codeLenses.push(new CodeLens(range, { title: "Raw Output", command: "kind2/raw", arguments: [component] }));
           codeLenses.push(new CodeLens(range, { title: "Show in Explorer", command: "kind2/reveal", arguments: [component] }));
         } else {
           codeLenses.push(new CodeLens(range, { title: "Check Properties", command: "kind2/check", arguments: [component] }));
